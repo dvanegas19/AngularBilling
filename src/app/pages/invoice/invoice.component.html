@@ -1,0 +1,77 @@
+<div class="long-title">
+    <h3>Productos y Facturación</h3>
+</div>
+<div id="form-container">
+    <form [formGroup]="firstFormGroup">    
+        <div class="dx-field">
+            <div class="dx-field-label">Producto</div>
+            <div class="dx-field-value">
+                <dx-select-box
+                    formControlName="selectProduct" 
+                    [dataSource]="listProduct"
+                    displayExpr="Description"
+                    valueExpr="IdProduct"
+                ></dx-select-box>
+            </div>
+        </div>    
+        <div class="dx-field">
+            <div class="dx-field-label">Cantidad</div>
+            <div class="dx-field-value">
+        <dx-text-box
+            value=""
+            formControlName="Unit" 
+            placeholder="Cantidad">    
+         </dx-text-box>
+</div>
+</div>
+   
+    <div class="dx-field">
+        <div class="dx-field-label">Cliente</div>
+        <div class="dx-field-value">
+            <dx-select-box
+                formControlName="selectClient" 
+                [dataSource]="listClient"
+                displayExpr="Names"
+                valueExpr="IdClient"
+            ></dx-select-box>
+        </div>
+    </div>
+
+    <dx-button
+    stylingMode="outlined"
+    text="Agregar Producto"
+    type="success"
+    (onClick)="newProduct($event)">
+</dx-button>    
+</form>
+<div class="long-title">
+</div>
+
+
+<dx-button
+stylingMode="outlined"
+text="Guardar Factura"
+type="success"
+(onClick)="saveInvoice()">
+</dx-button> 
+
+<dx-data-grid  id="gridTemporal" [dataSource]="listProductTemp" class="comp back" [showBorders]="true" 
+    >
+    <dxi-column caption="Codigo" dataField="IdProduct"></dxi-column>
+        <dxi-column caption="Descripción" dataField="Description"  ></dxi-column>
+        <dxi-column caption="Unidades" dataField="Unit"></dxi-column>
+        <dxi-column caption="Precio" dataField="Price" [format]='{ style: "currency", currency: "COP" }'></dxi-column>
+        <dxi-column caption="IVA" dataField="IVA" [format]='{ style: "currency", currency: "COP" }'></dxi-column>
+        
+    </dx-data-grid >
+    <div class="long-title">
+        Historial de Facturas
+    </div>
+    <dx-data-grid id="gridContainer"  [dataSource]="listInvoice?.Data" class="comp back" [showBorders]="true">
+        <dxi-column caption="Codigo" dataField="IdInvoice" ></dxi-column>
+        <dxi-column caption="Fecha" dataField="RegistrationDate"></dxi-column>
+        <dxi-column caption="Total" dataField="Total" [format]='{ style: "currency", currency: "COP" }'></dxi-column>       
+        <dxi-column caption="Total IVA" dataField="IVA" dataType="" [format]='{ style: "currency", currency: "COP" }'></dxi-column>
+    </dx-data-grid>
+ 
+</div>

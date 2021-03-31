@@ -1,0 +1,100 @@
+<div class="long-title">
+    <h3>Maestro Clientes</h3>
+</div>
+<div id="form-container">
+    <form [formGroup]="firstFormGroup">        
+        <div class="dx-field">
+            <div class="dx-field-label">Nombres</div>
+            <div class="dx-field-value">
+        <dx-text-box
+        value=""
+        formControlName="names" 
+        placeholder="Ingrese Nombres"
+        
+    ></dx-text-box>
+</div>
+</div>
+<div class="dx-field">
+    <div class="dx-field-label">Apellidos</div>
+    <div class="dx-field-value">
+    <dx-text-box
+        value=""
+        formControlName="lastName" 
+        placeholder="Ingrese Apellidos"
+        
+    ></dx-text-box>
+    </div>
+</div>
+<div class="dx-field">
+    <div class="dx-field-label">Documento</div>
+    <div class="dx-field-value">
+    <dx-text-box
+        value=""
+        formControlName="document" 
+        placeholder="Numero Documento"
+        
+    ></dx-text-box>
+    </div>
+</div>
+    <div class="dx-field">
+        <div class="dx-field-label">Tipo Documento</div>
+        <div class="dx-field-value">
+            <dx-select-box
+                formControlName="documentType" 
+                [dataSource]="documentType"
+                displayExpr="Name"
+                valueExpr="ID"
+            ></dx-select-box>
+        </div>
+    </div>
+    <div class="dx-field">
+        <div class="dx-field-label">Fecha Nacimiento</div>
+        <div class="dx-field-value">
+            <dx-date-box
+                formControlName="birthDay" 
+                [value]="now"
+                type="date">
+            </dx-date-box>
+        </div>
+    </div>
+    <dx-button
+    stylingMode="contained"
+    text="Contained"
+    type="normal"
+    [width]="120"
+    (onClick)="newClient($event)">
+</dx-button>    
+</form>
+<div class="long-title">
+</div>
+    <dx-data-grid id="gridContainer" [dataSource]="listClient" class="comp back" [showBorders]="true"
+    (onSaved)="logEvent($event, 'updated')"
+    >
+        <dxo-editing 
+            mode="row"
+            [allowUpdating]="true"
+            [allowDeleting]="true"
+           >
+        </dxo-editing>
+        <dxi-column type="buttons">
+           <!--<dxi-button text="Editar"
+                (onClick)="editUser($event)">
+            </dxi-button>--> 
+           
+        </dxi-column>
+        <dxi-column caption="Nombres" dataField="Names"  ></dxi-column>
+        <dxi-column caption="Apellidos" dataField="LastName"></dxi-column>
+        <dxi-column caption="Documento" dataField="Document"></dxi-column>
+        <dxi-column
+        dataField="documentType"
+        caption="Tipo Documento"
+        [width]="125">         
+        <dxo-lookup
+            [dataSource]="documentType"
+            displayExpr="Name"
+            valueExpr="ID">
+        </dxo-lookup>
+    </dxi-column>
+        <dxi-column caption="Fecha Nacimiento" dataField="BirthDate" dataType="date"></dxi-column>
+    </dx-data-grid>
+</div>
